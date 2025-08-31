@@ -1,3 +1,7 @@
+<img width="641" height="261" alt="Screenshot 2025-08-31 170113" src="https://github.com/user-attachments/assets/765f5367-9776-490c-99ed-778ec3e8ed83" />
+<img width="621" height="847" alt="Screenshot 2025-08-31 170100" src="https://github.com/user-attachments/assets/9f638647-67d8-4cf0-8582-77a305854aeb" />
+<img width="1919" height="418" alt="Screenshot 2025-08-31 170043" src="https://github.com/user-attachments/assets/59029d1c-1926-4bfe-8432-23992bfb8bd3" />
+<img width="1898" height="860" alt="Screenshot 2025-08-31 170026" src="https://github.com/user-attachments/assets/4881762b-df63-4465-9962-fa9586cb2fcb" />
 ** Introduction**  
 The **Point Table Management System** is a Flask-based web application developed as part of a Data Analytics Project (DAP).  
 It helps in **automatically managing tournament point tables**, tracking match results, and generating rankings based on wins, losses, draws, and other parameters.  
