@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Points Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+        }
+
+        h2 {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            color: white;
+        }
+
+        /* Table Transparent Styling */
+        .table-container {
+            width: 100%;
+            margin: auto;
+            padding: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5); /* Semi-transparent white border */
+            color: rgb(0, 0, 0);
+            background: transparent; /* Fully transparent */
+            backdrop-filter: blur(5px); /* Optional: Slight blur for readability */
+        }
+
+        th {
+            background: rgba(0, 0, 0, 0.4); /* Slightly darker header for contrast */
+        }
+
+        /* Form Styling */
+        .card {
+            background: rgba(115, 102, 102, 0.9);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: rgb(0, 123, 255);
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        
+        /* Force black color for clickable team name links */
+        
+        
+        .table-container a {
+         color: black !important;
+         text-decoration: underline;
+        }
+
+    </style>
+    
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="mb-4">IPL Points Table</h2>
+
+        <!-- Points Table -->
+        <div class="table-container">
+            <h4 class="text-center mb-3">Current Standings</h4>
+            <div class="table-responsive">
+                {{ table | safe }}
+            </div>
+        </div>
+
+        <!-- Update Form -->
+        <div class="card p-4 mt-4">
+            <h4 class="text-center mb-3">Update Match Result</h4>
+            <form action="/update" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label" style="color: rgb(44, 3, 3);">Team 1:</label>
+                        <input type="text" class="form-control" name="team1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" style="color: rgb(44, 3, 3);">Runs Scored by Team 1:</label>
+                        <input type="number" class="form-control" name="runs1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" style="color: rgb(44, 3, 3);">Team 2:</label>
+                        <input type="text" class="form-control" name="team2" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" style="color: rgb(44, 3, 3);">Runs Scored by Team 2:</label>
+                        <input type="number" class="form-control" name="runs2" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Update Points Table</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // List of valid team names in your points table
+        const validTeams = ["DC","RCB","MI","KKR","GT","CSK","LSG","SRH","KXIP","PK"
+            ];
+    
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const team1 = document.querySelector("input[name='team1']").value.trim();
+            const team2 = document.querySelector("input[name='team2']").value.trim();
+            const runs1 = document.querySelector("input[name='runs1']").value;
+            const runs2 = document.querySelector("input[name='runs2']").value;
+    
+            let errors = [];
+    
+            // Team name check
+            if (!validTeams.includes(team1)) {
+                errors.push("Team 1 name must be from the points table.");
+            }
+    
+            if (!validTeams.includes(team2)) {
+                errors.push("Team 2 name must be from the points table.");
+            }
+    
+            // Score number check
+            if (isNaN(runs1) || runs1 < 0) {
+                errors.push("Runs scored by Team 1 must be a positive number.");
+            }
+    
+            if (isNaN(runs2) || runs2 < 0) {
+                errors.push("Runs scored by Team 2 must be a positive number.");
+            }
+    
+            if (errors.length > 0) {
+                e.preventDefault();
+                alert(errors.join("\n"));
+            }
+        });
+    </script>
+    
+</body>
+</html>
